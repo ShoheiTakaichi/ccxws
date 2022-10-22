@@ -18,7 +18,7 @@ CCXWS – CryptoCurrency eXchange Websocket Library
 ## How to develop
 
 1. coding
-2. `python test_bitget.py`
+2. `python test_bitfinex.py`
 3. `pysen run format`
 
 ## event emmition
