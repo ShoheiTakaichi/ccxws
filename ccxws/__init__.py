@@ -1,6 +1,5 @@
 from ccxws.binance import binance
 from ccxws.bitfinex import bitfinex
-from ccxws.bitfinex import bitfinex_dict
 from ccxws.bitflyer.bitflyer import bitflyer
 from ccxws.bitget import bitget
 from ccxws.liquid import liquid_dict
