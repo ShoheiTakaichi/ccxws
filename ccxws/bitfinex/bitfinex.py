@@ -9,9 +9,6 @@ from loguru import logger
 
 from ..iwebsocket import iwebsocket
 from ..ccxt_delegator import CcxtDelegator
-from ..utils import balance
-from ..utils import user_execution
-from ..utils import user_order
 
 from ..models import user_execution, orderbook, quote, user_order_list
 

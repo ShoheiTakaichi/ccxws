@@ -7,7 +7,6 @@ import websocket
 
 from ccxws.iwebsocket import iwebsocket
 from ccxws.ccxt_delegator import CcxtDelegator
-from ccxws.utils import orderbook, user_order, user_execution, execution
 
 from ..models import orderbook, quote, user_order_list
 
