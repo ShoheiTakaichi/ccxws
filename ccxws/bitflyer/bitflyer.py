@@ -16,10 +16,10 @@ from ccxws.models import orderbook, quote
 from .utils import to_orderbook_snapshot
 
 class bitflyer(iwebsocket, Thread):
-    def __init__(self, apikey: str='', secret: str='') -> None:
+    def __init__(self, apiKey: str='', secret: str='') -> None:
         Thread.__init__(self)
         self.channel = "wss://ws.lightstream.bitflyer.com/json-rpc"
-        self._key = apikey
+        self._key = apiKey
         self._secret = secret
         self._JSONRPC_ID_AUTH = 1
         self.message_queue: Queue = Queue()
