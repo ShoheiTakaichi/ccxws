@@ -16,6 +16,7 @@ from ccxws.models import orderbook, quote
 from .utils import to_orderbook_snapshot
 
 class bitflyer(iwebsocket, Thread):
+    exchange = 'bitflyer'
     def __init__(self, apiKey: str='', secret: str='') -> None:
         Thread.__init__(self)
         self.channel = "wss://ws.lightstream.bitflyer.com/json-rpc"
