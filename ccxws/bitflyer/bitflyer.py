@@ -12,6 +12,7 @@ import jwt
 import websocket
 
 from ccxws.iwebsocket import iwebsocket
+from ccxws.ccxt_delegator import CcxtDelegator
 from ccxws.models import orderbook, quote
 from .utils import to_orderbook_snapshot
 
