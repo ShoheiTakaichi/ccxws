@@ -1,7 +1,7 @@
+import datetime
 from ..models import execution
 from ..models import quote
 from ..models import user_execution
-
 
 def to_orderbook_snapshot(data):
     asks = {}
@@ -18,18 +18,26 @@ def to_orderbook_snapshot(data):
         )
     return {'asks': asks, 'bids': bids}
 
-# before
+"""
+{'buy_child_order_acceptance_id': 'JRF20221024-094318-146678',
+                         'exec_date': '2022-10-24T09:43:18.7868824Z',
+                         'id': 2401318453,
+                         'price': 2896010.0,
+                         'sell_child_order_acceptance_id': 'JRF20221024-094318-153326',
+                         'side': 'SELL',
+                         'size': 0.02}
+"""
 
 def to_execution(symbol, data):
     return execution(
-        exchange='bitfinex',
+        exchange='bitflyer',
         symbol=symbol,
-        timestamp=data['timestamp'],
+        timestamp=datetime.datetime.strptime(data['exec_date'][0:-2], '%Y-%m-%dT%H:%M:%S.%f'),
         price=data['price'],
-        amount=data['quantity'],
-        taker_side=data['taker_side'],
-        sell_order_id=data['sell_order_id'],
-        buy_order_id=data['buy_order_id']
+        amount=data['size'],
+        taker_side=data['side'],
+        sell_order_id='',
+        buy_order_id=''
     )
 
 
@@ -39,6 +47,7 @@ def convert_symbol(symbol: str):
     first, second = symbol.split('/')
     return 'FX_'+first + '_' +second
 
+# before
 
 def to_user_execution(symbol, data):
     return user_execution(

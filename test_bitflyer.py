@@ -6,13 +6,13 @@ api = ''
 secret = ''
 
 
-client = ccxws.bitflyer(apikey = api, secret = secret)
+client = ccxws.bitflyer(apiKey = api, secret = secret)
 
 client.start()
 
 sleep(1)
 # client.subscribe_orderbook('BTC_JPY')
-client.subscribe_execution('BTC_JPY')
+client.subscribe_execution('BTC/JPY')
 
 client.subscribe_user_order()
 

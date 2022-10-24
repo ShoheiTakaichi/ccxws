@@ -10,6 +10,7 @@ from hashlib import sha256
 from secrets import token_hex
 import jwt
 import websocket
+import datetime
 
 from ccxws.iwebsocket import iwebsocket
 from ccxws.ccxt_delegator import CcxtDelegator
@@ -74,6 +75,12 @@ class bitflyer(iwebsocket, CcxtDelegator, Thread):
                     self.message_queue.put(self.orderbook[symbol].to_simple_orderbook())
                 if messages['params']['channel'][0:21] == 'lightning_executions_':
                     symbol = messages['params']['channel'][21:]
+                    data = messages['params']['message']
+                    for datum in data:
+                        try:
+                            self.message_queue.put(to_execution(symbol,datum))
+                        except Exception as e:
+                            print(e)
             else:
                 pprint(messages)
         else:

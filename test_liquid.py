@@ -12,7 +12,6 @@ client.start()
 sleep(1)
 
 client.subscribe_orderbook('BTC/JPY')
-# client.subscribe_user_execution('gxtusdt')
 client.subscribe_execution('BTC/JPY')
 # client.subscribe_user_order('jpy')
 

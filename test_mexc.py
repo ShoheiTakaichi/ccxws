@@ -12,9 +12,7 @@ client = ccxws.mexc(apiKey = api, secret = secret)
 client.start()
 sleep(1)
 
-# client.subscribe_orderbook('GXT/USDT')
-client.subscribe_execution('GXT/USDT')
-# client.subscribe_execution('BTC/USDT')
+client.subscribe_execution('BTC/USDT')
 # client.auth()
 
 

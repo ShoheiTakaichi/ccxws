@@ -13,8 +13,6 @@ client = ccxws.bitfinex(apiKey = api, secret = secret)
 client.start()
 sleep(1)
 
-# client.subscribe_orderbook('WNCG/USD')
-# client.subscribe_execution('GXT/USD')
 # client.subscribe_execution('BTC/USDT')
 client.auth()
 
