@@ -20,7 +20,7 @@ class bitflyer(iwebsocket, CcxtDelegator, Thread):
     exchange = 'bitflyer'
     def __init__(self, apiKey: str='', secret: str='') -> None:
         Thread.__init__(self)
-        CcxtDelegator.__init__(self, 'liquid', {'apiKey': apiKey, 'secret': secret})
+        CcxtDelegator.__init__(self, 'bitflyer', {'apiKey': apiKey, 'secret': secret})
         self.channel = "wss://ws.lightstream.bitflyer.com/json-rpc"
         self._key = apiKey
         self._secret = secret
