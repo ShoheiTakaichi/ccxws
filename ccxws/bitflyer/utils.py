@@ -37,7 +37,7 @@ def convert_symbol(symbol: str):
     if not symbol.isupper() and len(symbol.split('/')) != 2:
         raise Exception("invalid format. symbol must be like 'BTC/USDT'")
     first, second = symbol.split('/')
-    return (first + second).lower()
+    return 'FX_'+first + '_' +second
 
 
 def to_user_execution(symbol, data):
