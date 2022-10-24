@@ -75,7 +75,6 @@ class bitflyer(iwebsocket, CcxtDelegator, Thread):
                     self.message_queue.put(self.orderbook[symbol].to_simple_orderbook())
                 if messages['params']['channel'][0:21] == 'lightning_executions_':
                     symbol = messages['params']['channel'][21:]
-                    print(symbol)
             else:
                 pprint(messages)
         else:
@@ -122,26 +121,26 @@ class bitflyer(iwebsocket, CcxtDelegator, Thread):
     def subscribe_execution(self, symbol: str) -> None:
         message = {
             "method": "subscribe",
-            "params": {"channel": f"lightning_executions_{symbol}"},
+            "params": {"channel": f"lightning_executions_{convert_symbol(symbol)}"},
         }
         self.ws.send(json.dumps(message))
 
     def subscribe_user_execution(self, symbol: str) -> None:
         message = {
             "event": "pusher:subscribe",
-            "data": {"channel": f"user_executions_cash_{symbol}"},
+            "data": {"channel": f"user_executions_cash_{convert_symbol(symbol)}"},
         }
         self.ws.send(json.dumps(message))
 
     def subscribe_orderbook(self, symbol: str) -> None:
         message = {
             "method": "subscribe",
-            "params": {"channel": f"lightning_board_snapshot_{symbol}"},
+            "params": {"channel": f"lightning_board_snapshot_{convert_symbol(symbol)}"},
         }
         self.ws.send(json.dumps(message))
         message = {
             "method": "subscribe",
-            "params": {"channel": f"lightning_board_{symbol}"},
+            "params": {"channel": f"lightning_board_{convert_symbol(symbol)}"},
         }
         self.ws.send(json.dumps(message))
 
