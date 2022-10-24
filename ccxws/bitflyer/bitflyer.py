@@ -37,7 +37,6 @@ class bitflyer(iwebsocket, CcxtDelegator, Thread):
 
     def on_message(self, ws: websocket.WebSocketApp, message: str) -> None:
         messages = json.loads(message)
-        pprint(messages)
         if message == '{"jsonrpc":"2.0","id":1,"result":true}':
             self.is_auth = True
         if 'method' in messages.keys():
