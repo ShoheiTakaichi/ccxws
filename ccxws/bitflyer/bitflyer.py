@@ -15,7 +15,7 @@ from ccxws.iwebsocket import iwebsocket
 from ccxws.models import orderbook, quote
 from .utils import to_orderbook_snapshot
 
-class bitflyer(iwebsocket, Thread):
+class bitflyer(iwebsocket, CcxtDelegator, Thread):
     exchange = 'bitflyer'
     def __init__(self, apiKey: str='', secret: str='') -> None:
         Thread.__init__(self)
