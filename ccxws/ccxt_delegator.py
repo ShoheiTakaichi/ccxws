@@ -19,6 +19,9 @@ class CcxtDelegator():
         if exchange == 'binance':
             self.__ccxt = ccxt.binance(key)
 
+        if exchange == 'bitflyer':
+            self.__ccxt = ccxt.bitflyer(key)
+
     def create_order(self, symbol, side, amount, price):
         return self.__ccxt.create_order(
             symbol=symbol,
