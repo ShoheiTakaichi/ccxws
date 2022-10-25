@@ -24,7 +24,7 @@ class CcxtDelegator():
 
     def create_order(self, symbol, side, amount, price):
         return self.__ccxt.create_order(
-            symbol=symbol,
+            symbol=self._convert_symbol(symbol),
             side=side,
             amount=amount,
             price=price,
@@ -32,16 +32,16 @@ class CcxtDelegator():
 
     def create_market_order(self, symbol, side, amount):
         return self.__ccxt.create_order(
-            symbol=symbol,
+            symbol=self._convert_symbol(symbol),
             side=side,
             amount=amount,
             type='market')
 
     def cancel_order(self, symbol, id):
-        return self.__ccxt.cancel_order(id=id, symbol=symbol)
+        return self.__ccxt.cancel_order(id=id, symbol=self._convert_symbol(symbol))
 
     def edit_order(self, id, symbol, side, amount, price):
-        return self.__ccxt.edit_order(id, symbol, 'limit', side, amount, price)
+        return self.__ccxt.edit_order(id, self._convert_symbol(symbol), 'limit', side, amount, price)
 
     def fetch_balance(self) -> balance:
         res = self.__ccxt.fetch_balance()
@@ -52,7 +52,7 @@ class CcxtDelegator():
             print(res)
 
     def fetch_open_orders(self, symbol):
-        return self.__ccxt.fetch_open_orders(symbol=symbol)
+        return self.__ccxt.fetch_open_orders(symbol=self._convert_symbol(symbol))
 
     def fetch_ohlcv(self, symbol, timeframe = '1m', limit=1000):
         if timeframe == '1m':
@@ -70,4 +70,7 @@ class CcxtDelegator():
 
 
     def fetch_order_book(self, symbol):
-        return self.__ccxt.fetch_order_book(symbol=symbol)
+        return self.__ccxt.fetch_order_book(symbol=self._convert_symbol(symbol))
+
+    def _convert_symbol(self, symbol):
+        return symbol
