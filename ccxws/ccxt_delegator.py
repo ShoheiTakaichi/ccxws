@@ -57,16 +57,16 @@ class CcxtDelegator():
     def fetch_ohlcv(self, symbol, timeframe = '1m', limit=1000):
         if timeframe == '1m':
             since = int((time() - limit*60) * 1000)
-            return self.__ccxt.fetch_ohlcv(symbol=symbol, timeframe=timeframe,limit=limit, since=since)
+            return self.__ccxt.fetch_ohlcv(symbol=self._convert_symbol(symbol), timeframe=timeframe,limit=limit, since=since)
         if timeframe == '5m':
             since = int((time() - limit*300) * 1000)
-            return self.__ccxt.fetch_ohlcv(symbol=symbol, timeframe=timeframe,limit=limit, since=since)
+            return self.__ccxt.fetch_ohlcv(symbol=self._convert_symbol(symbol), timeframe=timeframe,limit=limit, since=since)
         if timeframe == '1h':
             since = int((time() - limit*60*60) * 1000)
-            return self.__ccxt.fetch_ohlcv(symbol=symbol, timeframe=timeframe,limit=limit, since=since)
+            return self.__ccxt.fetch_ohlcv(symbol=self._convert_symbol(symbol), timeframe=timeframe,limit=limit, since=since)
         if timeframe == '1d':
             since = int((time() - limit*60*60*24) * 1000)
-            return self.__ccxt.fetch_ohlcv(symbol=symbol, timeframe=timeframe,limit=limit, since=since)
+            return self.__ccxt.fetch_ohlcv(symbol=self._convert_symbol(symbol), timeframe=timeframe,limit=limit, since=since)
 
 
     def fetch_order_book(self, symbol):
