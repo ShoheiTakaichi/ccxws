@@ -18,15 +18,6 @@ def to_orderbook_snapshot(data):
         )
     return {'asks': asks, 'bids': bids}
 
-"""
-{'buy_child_order_acceptance_id': 'JRF20221024-094318-146678',
-                         'exec_date': '2022-10-24T09:43:18.7868824Z',
-                         'id': 2401318453,
-                         'price': 2896010.0,
-                         'sell_child_order_acceptance_id': 'JRF20221024-094318-153326',
-                         'side': 'SELL',
-                         'size': 0.02}
-"""
 
 def to_execution(symbol, data):
     return execution(
@@ -45,7 +36,7 @@ def convert_symbol(symbol: str):
     if not symbol.isupper() and len(symbol.split('/')) != 2:
         raise Exception("invalid format. symbol must be like 'BTC/USDT'")
     first, second = symbol.split('/')
-    return 'FX_'+first + '_' +second
+    return first + '_' +second
 
 # before
 
