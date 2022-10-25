@@ -156,6 +156,3 @@ class bitflyer(iwebsocket, CcxtDelegator, Thread):
             "params": {"channel": "child_order_events"},
         }
         self.ws.send(json.dumps(message))
-
-    def _convert_symbol(self, symbol: str):
-        return symbol.replace('/','_')

@@ -73,4 +73,6 @@ class CcxtDelegator():
         return self.__ccxt.fetch_order_book(symbol=self._convert_symbol(symbol))
 
     def _convert_symbol(self, symbol):
+        if self.exchange == 'bitflyer':
+            return symbol.replace('/','_')
         return symbol
