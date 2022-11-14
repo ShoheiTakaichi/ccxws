@@ -159,10 +159,10 @@ class bitflyer(iwebsocket, CcxtDelegator, Thread):
 
     def fetch_balance(self) -> balance:
         try:
-            balance = self.__ccxt.fetch_balance()
+            res = self.__ccxt.fetch_balance()
             positions = self.__ccxt.private_get_getpositions(params = { "product_code" : "FX_BTC_JPY" })
             collateral = self.__ccxt.private_get_getcollateral()
-            balance.append({
+            res.append({
                 'currency_code': 'JPY_FX',
                 'amount': collateral['collateral'],
                 'available': collateral['collateral'] - collateral['require_collateral']
@@ -173,12 +173,12 @@ class bitflyer(iwebsocket, CcxtDelegator, Thread):
                     btc_fx_position -= position['size']
                 if position['side'] == 'BUY':
                     btc_fx_position += position['size']
-            balance.append({
+            res.append({
                 'currency_code': 'BTC_FX',
                 'amount': btc_fx_position,
                 'available': btc_fx_position
                 })
-            b = balance.from_ccxt(self.exchange, balance)
+            b = balance.from_ccxt(self.exchange, res)
             return b
         except:
             print(balance)
