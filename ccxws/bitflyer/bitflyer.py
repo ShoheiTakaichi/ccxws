@@ -182,4 +182,4 @@ class bitflyer(iwebsocket, CcxtDelegator, Thread):
             b = balance.from_ccxt(self.exchange, balance)
             return b
         except:
-            print(res)
+            print(balance)
