@@ -11,6 +11,7 @@ from secrets import token_hex
 import jwt
 import websocket
 import datetime
+from ccxws.ccxws.models import balance
 
 from ccxws.iwebsocket import iwebsocket
 from ccxws.ccxt_delegator import CcxtDelegator
@@ -156,3 +157,29 @@ class bitflyer(iwebsocket, CcxtDelegator, Thread):
             "params": {"channel": "child_order_events"},
         }
         self.ws.send(json.dumps(message))
+
+    def fetch_balance(self) -> balance:
+        try:
+            balance = self.__ccxt.fetch_balance()
+            positions = self.__ccxt.private_get_getpositions(params = { "product_code" : "FX_BTC_JPY" })
+            collateral = self.__ccxt.private_get_getcollateral()
+            balance.append({
+                'currency_code': 'JPY_FX',
+                'amount': collateral['collateral'],
+                'available': collateral['collateral'] - collateral['require_collateral']
+            })
+            btc_fx_position = 0
+            for position in positions:
+                if position['side'] == 'SELL':
+                    btc_fx_position -= position['size']
+                if position['side'] == 'BUY':
+                    btc_fx_position += position['size']
+            balance.append({
+                'currency_code': 'BTC_FX',
+                'amount': btc_fx_position,
+                'available': btc_fx_position
+                })
+            b = balance.from_ccxt(self.exchange, balance)
+            return b
+        except:
+            print(res)
