@@ -163,7 +163,7 @@ class bitflyer(iwebsocket, CcxtDelegator, Thread):
             positions = self.__ccxt.private_get_getpositions(params = { "product_code" : "FX_BTC_JPY" })
             collateral = self.__ccxt.private_get_getcollateral()
             res.append({
-                'currency_code': 'JPY_FX',
+                'symbol': 'JPY_FX',
                 'free': collateral['collateral'] - collateral['require_collateral'],
                 'used': collateral['require_collateral']
             })
@@ -174,7 +174,7 @@ class bitflyer(iwebsocket, CcxtDelegator, Thread):
                 if position['side'] == 'BUY':
                     btc_fx_position += position['size']
             res.append({
-                'currency_code': 'BTC_FX',
+                'symbol': 'BTC_FX',
                 'free': btc_fx_position,
                 'used': 0
                 })
