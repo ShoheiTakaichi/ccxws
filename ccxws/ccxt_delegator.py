@@ -2,7 +2,6 @@ import ccxt
 from time import time
 from .models import *
 
-
 class CcxtDelegator():
     exchange: str
     def __init__(self, exchange, key):
@@ -44,12 +43,36 @@ class CcxtDelegator():
         return self.__ccxt.edit_order(id, self._convert_symbol(symbol), 'limit', side, amount, price)
 
     def fetch_balance(self) -> balance:
-        res = self.__ccxt.fetch_balance()
-        try:
-            b = balance.from_ccxt(self.exchange, res)
-            return b
-        except:
-            print(res)
+        if self.exchange != 'bitflyer':
+            try:
+                res = self.__ccxt.fetch_balance()
+                b = balance.from_ccxt(self.exchange, res)
+                return b
+            except Exception as e:
+                print(e)
+        if self.exchange == 'bitflyer':
+            try:
+                res = self.__ccxt.fetch_balance()
+                positions = self.__ccxt.private_get_getpositions(params = { "product_code" : "FX_BTC_JPY" })
+                collateral = self.__ccxt.private_get_getcollateral()
+                res['JPY_FX'] = {
+                    'free': float(collateral['collateral']) - float(collateral['require_collateral']),
+                    'used': collateral['require_collateral']
+                }
+                btc_fx_position = 0
+                for position in positions:
+                    if position['side'] == 'SELL':
+                        btc_fx_position -= float(position['size'])
+                    if position['side'] == 'BUY':
+                        btc_fx_position += float(position['size'])
+                res['BTC_FX'] = {
+                    'free': btc_fx_position,
+                    'used': 0
+                }
+                b = balance.from_ccxt(self.exchange, res)
+                return b
+            except Exception as e:
+                print(e)
 
     def fetch_open_orders(self, symbol):
         return self.__ccxt.fetch_open_orders(symbol=self._convert_symbol(symbol))
