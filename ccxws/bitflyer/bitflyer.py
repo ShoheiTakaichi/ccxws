@@ -11,11 +11,10 @@ from secrets import token_hex
 import jwt
 import websocket
 import datetime
-from ccxws.ccxws.models import balance
 
 from ccxws.iwebsocket import iwebsocket
 from ccxws.ccxt_delegator import CcxtDelegator
-from ccxws.models import orderbook, quote
+from ccxws.models import orderbook, quote, balance
 from .utils import *
 
 class bitflyer(iwebsocket, CcxtDelegator, Thread):
