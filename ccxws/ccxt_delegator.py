@@ -62,7 +62,7 @@ class CcxtDelegator():
                 btc_fx_position = 0
                 for position in positions:
                     if position['side'] == 'SELL':
-                        btc_fx_position -= float(position['size'])
+                        btc_fx_position += float(position['size'])
                     if position['side'] == 'BUY':
                         btc_fx_position += float(position['size'])
                 res['BTC_FX'] = {
